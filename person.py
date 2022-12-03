@@ -9,6 +9,8 @@ class Person(object):
         # A person has an id, is_vaccinated and possibly an infection
         self._id = _id  # int
         # TODO Define the other attributes of a person here
+        self.is_vaccinated = is_vaccinated #bool
+        self.infection = infection
         pass
 
     def did_survive_infection(self):
@@ -37,7 +39,8 @@ if __name__ == "__main__":
 
     # Test an infected person. An infected person has an infection/virus
     # Create a Virus object to give a Person object an infection
-    virus = Virus("Dysentery", 0.7, 0.2)
+    # virus = Virus("Dysentery", 0.7, 0.2)
+    virus = Virus("Seasonal Flu", 0.025, 0.0010)
     # Create a Person object and give them the virus infection
     infected_person = Person(3, False, virus)
     # TODO: complete your own assert statements that test

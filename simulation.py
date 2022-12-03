@@ -11,14 +11,19 @@ class Simulation(object):
         # Remember to call the appropriate logger method in the corresponding parts of the simulation.
         
         # TODO: Store the virus in an attribute
+        self.virus = virus
         # TODO: Store pop_size in an attribute
+        self.pop_size = pop_size
         # TODO: Store the vacc_percentage in a variable
+        self.vacc_percentage = vacc_percentage
         # TODO: Store initial_infected in a variable
+        self.initial_infected = initial_infected
         # You need to store a list of people (Person instances)
         # Some of these people will be infected some will not. 
         # Use the _create_population() method to create the list and 
         # return it storing it in an attribute here. 
         # TODO: Call self._create_population() and pass in the correct parameters.
+        self._create_population()
         pass
 
     def _create_population(self):
@@ -26,7 +31,10 @@ class Simulation(object):
         # should have a total number of people equal to the pop_size. 
         # Some of these people will be uninfected and some will be infected.
         # The number of infected people should be equal to the the initial_infected
+        list_of_people = []
+        len(list_of_people) = self.initial_infected
         # TODO: Return the list of people
+        return list_of_people
         pass
 
     def _simulation_should_continue(self):
@@ -34,6 +42,12 @@ class Simulation(object):
         # should continue. 
         # The simulation should not continue if all of the people are dead, 
         # or if all of the living people have been vaccinated. 
+
+        for i in range(list_of_people):
+            if self.pop_size == 0 or if self.vacc_percentage == 100:
+                return False
+            return True
+
         # TODO: Loop over the list of people in the population. Return True
         # if the simulation should continue or False if not.
         pass
