@@ -38,21 +38,25 @@ class Logger(object):
         # Virus: {virus_name}\n
         # Initial infected: {self.initial_infected}\n
         # Initial vaccinated: {starting_people_vaccinated}"
-        metadata = "Herd-Immunity Simulation\nInitial population size: {pop_size}\n
-        Virus: {virus_name}\n
-        Initial infected: {initial_infected}\n
-        Initial vaccinated: {starting_people_vaccinated}"
+        # "Herd-Immunity Simulation\n
+        metadata = {
+            'Initial population size': pop_size,
+            'Virus': virus_name,
+            'Initial infected': self.initial_infected,
+            'Initial vaccinated': starting_people_vaccinated,
+            'Mortality rate': mortality_rate,
+            'Reproduction rate': basic_repro_num
+        }
 
-        summary = 
-
-
+    
         outfile.write(metadata)
         outfile.close
 
-        pass
+    
 
     def log_interactions(self, step_number, number_of_interactions, number_of_new_infections):
         # TODO: Finish this method. Think about how the booleans passed (or not passed)
+        number_of_interactions = 
         # represent all the possible edge cases. Use the values passed along with each person,
         # along with whether they are sick or vaccinated when they interact to determine
         # exactly what happened in the interaction and create a String, and write to your logfile.
@@ -61,11 +65,38 @@ class Logger(object):
     def log_infection_survival(self, step_number, population_count, number_of_new_fatalities):
         # TODO: Finish this method. If the person survives, did_die_from_infection
         # should be False.  Otherwise, did_die_from_infection should be True.
+        
+        if person.is_alive == True:
+            did_die_from_infection = False
+        if person.is_alive == False:
+            number_of_new_fatalities += 1
+            did_die_from_infection = True
+
+        population_count -= number_of_new_fatalities
+        step_number += 1
+
+
         # Append the results of the infection to the logfile
         pass
 
     def log_time_step(self, time_step_number):
         # 
+        pass
+
+    # summary should include:
+    #   The population size, the number of living, the number of dead, the number 
+    #   of vaccinated, and the number of steps to reach the end of the simulation.
+    def log_summary(self, pop_size, did_survive, did_not_survive, num_vaccinated, time_step_counter):
+        summary = {
+            'Initial population size': pop_size,
+            'Living': did_survive,
+            'Dead': did_not_survive,
+            'Vaccinated survivors': num_vaccinated,
+            'Number of time steps': time_step_counter
+        }
+        outfile.write(summary)
+        outfile.close
+        
         pass
 
     
