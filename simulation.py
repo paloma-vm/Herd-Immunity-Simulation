@@ -34,7 +34,7 @@ class Simulation(object):
         list_of_people = []
         
         for i in range(len(pop_size)):
-            person = Person(is_vaccinated=False, infection=None)
+            person = Person(i,is_vaccinated=False, infection=None)
             list_of_people.append(person)
         #  Make  vaccinated people
         starting_people_vaccinated = self.vacc_percentage * self.pop_size
@@ -90,16 +90,19 @@ class Simulation(object):
 
         while should_continue:
             # TODO: Increment the time_step_counter
+            time_step_counter += 1
+            
             # TODO: for every iteration of this loop, call self.time_step() 
+            self.time_step()
             # Call the _simulation_should_continue method to determine if 
             # the simulation should continue
             should_continue = self._simulation_should_continue()
-            pass
 
         # TODO: Write meta data to the logger. This should be starting 
         # statistics for the simulation. It should include the initial
         # population size and the virus. 
-        
+        self.write_metadata()
+       
         # TODO: When the simulation completes you should conclude this with 
         # the logger. Send the final data to the logger. 
 

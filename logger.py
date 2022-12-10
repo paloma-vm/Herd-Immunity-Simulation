@@ -3,6 +3,8 @@ class Logger(object):
         # TODO:  Finish this initialization method. The file_name passed should be the
         # full file name of the file that the logs will be written to.
         self.file_name = file_name
+        
+
         pass
 
     # The methods below are just suggestions. You can rearrange these or 
@@ -29,6 +31,20 @@ class Logger(object):
         # the 'a' mode to append a new log to the end, since 'w' overwrites the file.
         # NOTE: Make sure to end every line with a '/n' character to ensure that each
         # event logged ends up on a separate line!
+        self.file_name = 'output.txt'
+        outfile = open('output.txt', 'w')
+        starting_people_vaccinated = vacc_percentage * pop_size
+        # metadata = "Herd-Immunity Simulation\nInitial population size: {self.pop_size}\n
+        # Virus: {virus_name}\n
+        # Initial infected: {self.initial_infected}\n
+        # Initial vaccinated: {starting_people_vaccinated}"
+        metadata = "Herd-Immunity Simulation\nInitial population size: {pop_size}\n
+        Virus: {virus_name}\n
+        Initial infected: {initial_infected}\n
+        Initial vaccinated: {starting_people_vaccinated}"
+        outfile.write(metadata)
+        outfile.close
+
         pass
 
     def log_interactions(self, step_number, number_of_interactions, number_of_new_infections):
@@ -47,3 +63,8 @@ class Logger(object):
     def log_time_step(self, time_step_number):
         # 
         pass
+
+    
+    
+if __name__ == "__main__":
+
