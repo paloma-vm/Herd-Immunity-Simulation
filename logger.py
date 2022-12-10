@@ -42,6 +42,10 @@ class Logger(object):
         Virus: {virus_name}\n
         Initial infected: {initial_infected}\n
         Initial vaccinated: {starting_people_vaccinated}"
+
+        summary = 
+
+
         outfile.write(metadata)
         outfile.close
 
