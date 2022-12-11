@@ -56,14 +56,29 @@ class Logger(object):
 
     
 
-    def log_interactions(self, step_number, number_of_interactions, number_of_new_infections):
+    def log_interactions(self, time_step_counter, number_of_interactions, number_of_new_infections):
         # TODO: Finish this method. Think about how the booleans passed (or not passed)
         f = open(self.file_name, "a")
         # number_of_interactions = 
         # represent all the possible edge cases. Use the values passed along with each person,
         # along with whether they are sick or vaccinated when they interact to determine
         # exactly what happened in the interaction and create a String, and write to your logfile.
-        pass
+        if random_person.is_vaccinated is True:
+            f.write("{infected_person._id} did not infect {random_person._id} because they were vaccinated")
+        # random_person is already infected:
+        #     nothing happens to random person.
+        if random_person.infection == virus:#implies that they are not 
+            #vaccinated because the code already looked at that above
+            f.write("{infected_person._id} did not infect {random_person._id} because they were already infected.")
+        # random_person is healthy, but unvaccinated:
+        #     generate a random number between 0.0 and 1.0.  If that number is smaller
+        #     than repro_rate, add that person to the newly infected array
+        if random_person.infection is None and random_number < virus.repro_rate:
+            f.write("{infected_person._id} infected {random_person._id}")
+        if random_person.infection is None and random_number > virus.repro_rate:
+            f.write("{infected_person._id} did not infect {random_person._id}")
+
+        f.close
 
     def log_infection_survival(self, step_number, population_count, number_of_new_fatalities):
         # TODO: Finish this method. If the person survives, did_die_from_infection

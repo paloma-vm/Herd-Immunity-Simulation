@@ -31,6 +31,7 @@ class Simulation(object):
         self.did_not_survive = 0
         self.did_survive = 0
         self.did_survive_is_vacc = 0
+        self.number_of_new_infections = 0
         
         
 
@@ -131,25 +132,25 @@ class Simulation(object):
         # takes the infected person and a random person
         # ---------------
         number_of_interactions = 0
+        
         for person in self.population:
             if person.infection == virus and person.is_alive is True:
-                # people_interacted_with = random.choices(self.population, weights=None, cum_weights=None, k=100)
-                random_person = random.choice(self.population)
-            if random_person.is_alive is True:
-                number_of_interactions += 1
-                self.interaction(person, random_person)
-
+                self.interaction(self.infected_person, self.random_person)
+        # if number_of_interactions == 100:
+        #     return 
         # for infected_person in self.population:
         #     if infected_person.infection == virus:
         #         for i in range(100):
         #             infected_person.interaction(infected_person, random_person)
-                
-
-        pass
+            
 
     def interaction(self, infected_person, random_person):
-    # TODO: Finish this method.
-        # random_person = random.choice(self.population)
+        # TODO: Finish this method.
+        random_person = random.choice(self.population)
+
+        if random_person.is_alive is True:
+            number_of_interactions += 1
+    
     # The possible cases you'll need to cover are listed below:
         # random_person is vaccinated:
         #     nothing happens to random person.
@@ -172,7 +173,8 @@ class Simulation(object):
         #     attribute can be changed to True at the end of the time step.
 
         # TODO: Call logger method during this method.
-        return self.newly_infected
+        self.logger.log_interactions(self, self.time_step_counter, self.number_of_interactions, self.number_of_new_infections)
+        # return self.newly_infected
 
     def _infect_newly_infected(self):
         # TODO: Call this method at the end of every time step and infect each Person.
@@ -181,7 +183,7 @@ class Simulation(object):
         for person in self.newly_infected:
             person.infection = virus
         
-        number_of_new_infections = len(self.newly_infected)
+        self.number_of_new_infections = len(self.newly_infected)
 
         self.newly_infected.clear()
     
