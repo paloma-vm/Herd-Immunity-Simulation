@@ -3,9 +3,6 @@ class Logger(object):
         # TODO:  Finish this initialization method. The file_name passed should be the
         # full file name of the file that the logs will be written to.
         self.file_name = file_name
-        
-
-        pass
 
     # The methods below are just suggestions. You can rearrange these or 
     # rewrite them to better suit your code style. 
@@ -31,8 +28,8 @@ class Logger(object):
         # the 'a' mode to append a new log to the end, since 'w' overwrites the file.
         # NOTE: Make sure to end every line with a '/n' character to ensure that each
         # event logged ends up on a separate line!
-        self.file_name = 'output.txt'
-        outfile = open('output.txt', 'w')
+        
+        # outfile = open(self.file_name, 'w')
         starting_people_vaccinated = vacc_percentage * pop_size
         # metadata = "Herd-Immunity Simulation\nInitial population size: {self.pop_size}\n
         # Virus: {virus_name}\n
@@ -48,15 +45,21 @@ class Logger(object):
             'Reproduction rate': basic_repro_num
         }
 
-    
-        outfile.write(metadata)
-        outfile.close
+        # outfile = open(self.file_name, 'w')
+        with open("self.file_name", 'w') as f:
+            for key, value in metadata.items():
+                f.write('%s:%s\n' % (key, value))#the format of the output is string : string new line
+
+        # outfile.writelines(metadata)
+        # outfile.close
+        f.close
 
     
 
     def log_interactions(self, step_number, number_of_interactions, number_of_new_infections):
         # TODO: Finish this method. Think about how the booleans passed (or not passed)
-        number_of_interactions = 
+        f = open(self.file_name, "a")
+        # number_of_interactions = 
         # represent all the possible edge cases. Use the values passed along with each person,
         # along with whether they are sick or vaccinated when they interact to determine
         # exactly what happened in the interaction and create a String, and write to your logfile.
@@ -75,31 +78,61 @@ class Logger(object):
         population_count -= number_of_new_fatalities
         step_number += 1
 
-
         # Append the results of the infection to the logfile
-        pass
-
+        results = {
+            'Step number': step_number,
+            'Population at start of step:': population_count,
+            'Number of new fatalities': number_of_new_fatalities
+        }
+        
+        with open(self.file_name, 'a') as f:
+            for key, value in results.items():
+                f.write('%s:%s\n' % (key, value))#the format of the output is string : string new line
+        f.close
+        
+    # You should log the results of each step. This should inlcude: 
+    #   The population size, the number of living, the number of dead, and the number 
+    #   of vaccinated people at that step. 
     def log_time_step(self, time_step_number):
-        # 
-        pass
+        """logs a summary of the results of the step"""
+
+        # step_display =[
+        # "----------------------------------\n",
+        # "This is step number {time_step_number}"
+        # ]
+        step_summary = {
+            "------- Step {time_step_number} ":"Results --------",
+            'Initial population size': self.pop_size,
+            'Living': self.did_survive,
+            'Dead': self.did_not_survive,
+            'Vaccinated survivors': self.num_vaccinated
+        }
+        # f = open("self.file_name", 'a')
+        # f.writelines(step_summary)
+        with open("self.file_name", 'a') as f:
+            for key, value in step_summary.items():
+                f.write('%s:%s\n' % (key, value))#the format of the output is string : string new line
+        f.close
+        
 
     # summary should include:
     #   The population size, the number of living, the number of dead, the number 
     #   of vaccinated, and the number of steps to reach the end of the simulation.
     def log_summary(self, pop_size, did_survive, did_not_survive, num_vaccinated, time_step_counter):
-        summary = {
+        """logs a summary of the results of the whole simulation """
+        sim_summary = {
+            "****** SIMULATION OVER ******":"Results ***************",
             'Initial population size': pop_size,
             'Living': did_survive,
             'Dead': did_not_survive,
             'Vaccinated survivors': num_vaccinated,
-            'Number of time steps': time_step_counter
+            'Number of time steps to reach the end of the simulation': time_step_counter
         }
-        outfile.write(summary)
-        outfile.close
+        # outfile = open(self.file_name, 'a')
+        # outfile.write(summary)
+        # outfile.close
+        with open("self.file_name", 'a') as f:
+            for key, value in sim_summary.items():
+                f.write('%s:%s\n' % (key, value))#the format of the output is string : string new line
+        f.close
         
-        pass
-
-    
-    
-if __name__ == "__main__":
-
